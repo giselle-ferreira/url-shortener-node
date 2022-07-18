@@ -1,0 +1,1 @@
+mongodb+srv://root:<password>@url-shortener-cluster.x2tn4.mongodb.net/?retryWrites=true&w=majority
