@@ -32,12 +32,12 @@ module.exports = {
     redirect(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { hash } = req.params;
-            const url = {
-                originUrl: "https://github.com/giselle-ferreira",
-                hash: "Sfcn8v_Vn",
-                shortUrl: "http://localhost:3000/Sfcn8v_Vn"
-            };
-            res.redirect(url.originUrl);
+            const url = yield URL_1.UrlModel.findOne({ hash });
+            if (url) {
+                res.redirect(url.originUrl);
+                return;
+            }
+            res.status(400).json({ error: "URL not found" });
         });
     }
 };

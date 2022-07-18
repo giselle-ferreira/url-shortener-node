@@ -6,6 +6,7 @@ import shortid from 'shortid';
 module.exports = {
     async shorten(req: Request, res: Response): Promise<void> {
         const { originUrl } = req.body
+
         const url = await UrlModel.findOne({ originUrl })
         
         if(url) {
@@ -21,12 +22,14 @@ module.exports = {
 
     async redirect(req: Request, res: Response): Promise<void> {
         const { hash } = req.params
-        const url = { 
-            originUrl: "https://github.com/giselle-ferreira",
-            hash: "Sfcn8v_Vn",
-            shortUrl: "http://localhost:3000/Sfcn8v_Vn"
-        }
 
-        res.redirect(url.originUrl)
+        const url = await UrlModel.findOne({ hash })
+        
+        if(url) {
+            res.redirect(url.originUrl)
+            return
+        } 
+
+        res.status(400).json({ error: "URL not found"})    
     }
 }

@@ -18,7 +18,7 @@ module.exports = {
     connect() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                mongoose_1.default.connect(Constants_1.config.MONGO_CONN, { useNewUrlParser: true, useUnifiedTopology: true });
+                yield mongoose_1.default.connect(Constants_1.config.MONGO_CONN, { useNewUrlParser: true, useUnifiedTopology: true });
                 console.log("Connected to Database");
             }
             catch (err) {

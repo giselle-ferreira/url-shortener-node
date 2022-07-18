@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UrlModel = exports.URL = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
-class URL extends typegoose_1.Typegoose {
+class URL {
 }
 __decorate([
     (0, typegoose_1.prop)({ required: true }),
@@ -26,5 +26,5 @@ __decorate([
     __metadata("design:type", String)
 ], URL.prototype, "shortUrl", void 0);
 exports.URL = URL;
-exports.UrlModel = new URL().getModelForClass(URL);
+exports.UrlModel = (0, typegoose_1.getModelForClass)(URL);
 //# sourceMappingURL=URL.js.map
