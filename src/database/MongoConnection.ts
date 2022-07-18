@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import { config } from './../config/Constants';
 
-module.exports = {
-    async connect() {
+export class MongoConnection {
+    public async connect() {
         try {
-            await mongoose.connect(config.MONGO_CONN, { useNewUrlParser: true, useUnifiedTopology: true })
+            mongoose.connect(config.MONGO_CONN, { useNewUrlParser: true, useUnifiedTopology: true })
             console.log("Connected to Database")
 
         } catch (err) {
@@ -13,3 +13,4 @@ module.exports = {
         }
     }
 }
+

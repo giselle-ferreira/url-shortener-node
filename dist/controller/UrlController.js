@@ -8,14 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UrlController = void 0;
 const URL_1 = require("./../model/URL");
 const Constants_1 = require("./../config/Constants");
-const shortid_1 = __importDefault(require("shortid"));
-module.exports = {
+const uuidv4_1 = require("uuidv4");
+class UrlController {
     shorten(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { originUrl } = req.body;
@@ -23,12 +21,12 @@ module.exports = {
             if (url) {
                 res.json(url);
             }
-            const hash = shortid_1.default.generate();
+            const hash = (0, uuidv4_1.uuid)();
             const shortUrl = `${Constants_1.config.API_URL}/${hash}`;
             const newUrl = yield URL_1.UrlModel.create({ hash, originUrl, shortUrl });
             res.json({ newUrl });
         });
-    },
+    }
     redirect(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { hash } = req.params;
@@ -40,5 +38,6 @@ module.exports = {
             res.status(400).json({ error: "URL not found" });
         });
     }
-};
+}
+exports.UrlController = UrlController;
 //# sourceMappingURL=UrlController.js.map

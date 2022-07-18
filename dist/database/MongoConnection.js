@@ -12,13 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MongoConnection = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const Constants_1 = require("./../config/Constants");
-module.exports = {
+class MongoConnection {
     connect() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield mongoose_1.default.connect(Constants_1.config.MONGO_CONN, { useNewUrlParser: true, useUnifiedTopology: true });
+                mongoose_1.default.connect(Constants_1.config.MONGO_CONN, { useNewUrlParser: true, useUnifiedTopology: true });
                 console.log("Connected to Database");
             }
             catch (err) {
@@ -27,5 +28,6 @@ module.exports = {
             }
         });
     }
-};
+}
+exports.MongoConnection = MongoConnection;
 //# sourceMappingURL=MongoConnection.js.map

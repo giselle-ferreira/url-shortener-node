@@ -1,10 +1,10 @@
 import { UrlModel } from './../model/URL';
 import { config } from './../config/Constants';
 import { Request, Response } from 'express';
-import shortid from 'shortid';
+import { uuid } from 'uuidv4';
 
-module.exports = {
-    async shorten(req: Request, res: Response): Promise<void> {
+export class UrlController {
+    public async shorten(req: Request, res: Response): Promise<void> {
         const { originUrl } = req.body
 
         const url = await UrlModel.findOne({ originUrl })
@@ -12,15 +12,15 @@ module.exports = {
         if(url) {
             res.json(url)
         }
-
-        const hash = shortid.generate();        
+        
+        const hash = uuid();        
         const shortUrl = `${config.API_URL}/${hash}`
         const newUrl = await UrlModel.create({ hash, originUrl, shortUrl })
 
         res.json({ newUrl })
-    },
+    }
 
-    async redirect(req: Request, res: Response): Promise<void> {
+    public async redirect(req: Request, res: Response): Promise<void> {
         const { hash } = req.params
 
         const url = await UrlModel.findOne({ hash })
@@ -33,3 +33,4 @@ module.exports = {
         res.status(400).json({ error: "URL not found"})    
     }
 }
+
